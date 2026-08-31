@@ -1,0 +1,96 @@
+{% extends 'admin/base.html' %}
+
+{% block admin_content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>Manage Enquiries</h2>
+</div>
+
+<div class="card">
+    <form method="GET" action="{{ url_for('admin_enquiries') }}" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 20px;">
+        <div style="flex: 1; min-width: 200px;">
+            <label class="form-label" style="font-size: 0.85rem;">Search (Name, Email, Phone)</label>
+            <input type="text" name="search" class="form-control" value="{{ search }}" placeholder="Search enquiries...">
+        </div>
+        <div>
+            <label class="form-label" style="font-size: 0.85rem;">Status</label>
+            <select name="status" class="form-control">
+                <option value="">All Statuses</option>
+                <option value="Pending" {{ 'selected' if status_filter == 'Pending' else '' }}>Pending</option>
+                <option value="Contacted" {{ 'selected' if status_filter == 'Contacted' else '' }}>Contacted</option>
+                <option value="Admitted" {{ 'selected' if status_filter == 'Admitted' else '' }}>Admitted</option>
+                <option value="Rejected" {{ 'selected' if status_filter == 'Rejected' else '' }}>Rejected</option>
+            </select>
+        </div>
+        <div>
+            <label class="form-label" style="font-size: 0.85rem;">Course</label>
+            <select name="course" class="form-control">
+                <option value="">All Courses</option>
+                {% for c in available_courses %}
+                    <option value="{{ c }}" {{ 'selected' if course_filter == c else '' }}>{{ c }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label class="form-label" style="font-size: 0.85rem;">Year</label>
+            <select name="year" class="form-control">
+                <option value="">All Years</option>
+                {% for y in years %}
+                    <option value="{{ y }}" {{ 'selected' if year_filter == y|string else '' }}>{{ y }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="{{ url_for('admin_enquiries') }}" class="btn" style="background: var(--admin-bg); border: 1px solid var(--admin-border);">Clear</a>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        {% if not enquiries %}
+            <p style="text-align: center; padding: 20px;">No enquiries match your search/filter.</p>
+        {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Contact</th>
+                        <th>Course</th>
+                        <th>%</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for enq in enquiries %}
+                        <tr>
+                            <td>ENQ-{{ '%06d' % enq.id }}</td>
+                            <td>{{ enq.full_name }}</td>
+                            <td>
+                                <div>{{ enq.phone }}</div>
+                                <div style="font-size: 0.8rem; color: var(--admin-text-light);">{{ enq.email }}</div>
+                            </td>
+                            <td>{{ enq.course }}</td>
+                            <td>{{ (enq.percentage|string + '%') if enq.percentage and enq.percentage > 0 else '-' }}</td>
+                            <td>
+                                <span class="badge badge-{{ enq.status|lower }}">
+                                    {{ enq.status }}
+                                </span>
+                            </td>
+                            <td>{{ enq.created_at.strftime('%b %d, %Y') if enq.created_at else 'N/A' }}</td>
+                            <td>
+                                <div style="display: flex; gap: 5px;">
+                                    <a href="{{ url_for('admin_view_enquiry', enquiry_id=enq.id) }}" class="btn btn-primary btn-sm">View</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

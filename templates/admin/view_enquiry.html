@@ -1,0 +1,112 @@
+{% extends 'admin/base.html' %}
+
+{% block admin_content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>Enquiry Details</h2>
+    <a href="{{ url_for('admin_enquiries') }}" class="btn" style="background: var(--admin-bg); border: 1px solid var(--admin-border);">&larr; Back to Enquiries</a>
+</div>
+
+{% if not enquiry %}
+<div class="card">
+    <p>Enquiry not found.</p>
+    <a href="{{ url_for('admin_enquiries') }}" class="btn btn-primary">Back</a>
+</div>
+{% else %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+    <!-- Left Column: Details -->
+    <div>
+        <div class="card">
+            <h3 style="border-bottom: 1px solid var(--admin-border); padding-bottom: 10px; margin-bottom: 20px;">Personal Information</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div><strong>Full Name:</strong> <br>{{ enquiry.full_name }}</div>
+                <div><strong>Email:</strong> <br>{{ enquiry.email }}</div>
+                <div><strong>Phone:</strong> <br>{{ enquiry.phone }}</div>
+                <div><strong>Gender:</strong> <br>{{ enquiry.gender if enquiry.gender else 'N/A' }}</div>
+                <div><strong>Date of Birth:</strong> <br>{{ enquiry.date_of_birth.strftime('%b %d, %Y') if enquiry.date_of_birth and enquiry.date_of_birth|string != '2000-01-01' else 'N/A' }}</div>
+                <div><strong>Address:</strong> <br>{{ enquiry.address if enquiry.address else 'N/A' }}</div>
+                <div><strong>City:</strong> <br>{{ enquiry.city if enquiry.city else 'N/A' }}</div>
+                <div><strong>State:</strong> <br>{{ enquiry.state if enquiry.state else 'N/A' }}</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="border-bottom: 1px solid var(--admin-border); padding-bottom: 10px; margin-bottom: 20px;">Academic Information</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div><strong>Qualification:</strong> <br>{{ enquiry.qualification }}</div>
+                <div><strong>Percentage:</strong> <br>{{ (enquiry.percentage|string + '%') if enquiry.percentage and enquiry.percentage > 0 else 'N/A' }}</div>
+                <div><strong>Course Interested In:</strong> <br>{{ enquiry.course }}</div>
+                <div><strong>Admission Year:</strong> <br>{{ enquiry.admission_year }}</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="border-bottom: 1px solid var(--admin-border); padding-bottom: 10px; margin-bottom: 20px;">Message / Query</h3>
+            <p style="white-space: pre-wrap; margin: 0; line-height: 1.6;">{{ enquiry.message }}</p>
+        </div>
+    </div>
+
+    <!-- Right Column: Status & System Info -->
+    <div>
+        <div class="card">
+            <h3 style="border-bottom: 1px solid var(--admin-border); padding-bottom: 10px; margin-bottom: 20px;">System Information</h3>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>Reference Number:</strong> <br>
+                <span style="font-size: 1.2rem; color: var(--admin-primary); font-weight: bold;">
+                    ENQ-{{ '%06d' % enquiry.id }}
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>Current Status:</strong> <br>
+                <span class="badge badge-{{ enquiry.status|lower }}" style="font-size: 1rem; padding: 6px 12px; margin-top: 5px; display: inline-block;">
+                    {{ enquiry.status }}
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <strong>Created At:</strong> <br>
+                {{ enquiry.created_at.strftime('%B %d, %Y, %I:%M %p') if enquiry.created_at else 'N/A' }}
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <strong>Last Updated:</strong> <br>
+                {{ enquiry.updated_at.strftime('%B %d, %Y, %I:%M %p') if enquiry.updated_at else 'N/A' }}
+            </div>
+
+            <h4 style="margin-bottom: 15px;">Update Status</h4>
+            <form action="{{ url_for('admin_update_status') }}" method="POST" style="margin-bottom: 30px;">
+                <input type="hidden" name="id" value="{{ enquiry.id }}">
+                
+                <div style="display: flex; gap: 10px;">
+                    <select name="status" class="form-control" required>
+                        <option value="Pending" {{ 'selected' if enquiry.status == 'Pending' else '' }}>Pending</option>
+                        <option value="Contacted" {{ 'selected' if enquiry.status == 'Contacted' else '' }}>Contacted</option>
+                        <option value="Admitted" {{ 'selected' if enquiry.status == 'Admitted' else '' }}>Admitted</option>
+                        <option value="Rejected" {{ 'selected' if enquiry.status == 'Rejected' else '' }}>Rejected</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+
+            <h4 style="margin-bottom: 15px; color: var(--status-rejected);">Danger Zone</h4>
+            <form action="{{ url_for('admin_delete_enquiry') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this enquiry? This action cannot be undone.');">
+                <input type="hidden" name="id" value="{{ enquiry.id }}">
+                <button type="submit" class="btn btn-danger" style="width: 100%;">Delete Enquiry</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

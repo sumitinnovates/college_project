@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero" style="padding: 60px 0; background: var(--primary-color);">
+    <div class="container">
+        <h1 style="margin-bottom: 0;">About SBJS Rampuria Jain College</h1>
+        <p style="margin-bottom: 0; margin-top: 10px;">Excellence in Education since 1995</p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="grid grid-2" style="align-items: center; gap: 50px;">
+            <div>
+                <h2>Welcome to SBJS Rampuria Jain College</h2>
+                <p>At SBJS Rampuria Jain College, we believe in transforming lives through quality education. Our
+                    institution has been
+                    at the forefront of providing industry-aligned programs that bridge the gap between academic
+                    learning and professional success.</p>
+                <p>We boast a modern campus with state-of-the-art facilities, a dedicated placement cell, and an
+                    environment that fosters innovation and critical thinking.</p>
+            </div>
+            <div
+                style="height: 300px; border-radius: var(--border-radius); overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="{{ url_for('static', filename='images/bjsr_building.jpg') }}"
+                    alt="SBJS Rampuria Jain College Campus" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding" style="background-color: var(--bg-color);">
+    <div class="container grid grid-2">
+        <div class="card">
+            <div class="card-body">
+                <div class="icon-box"><i class="fa-solid fa-eye"></i></div>
+                <h3>Our Vision</h3>
+                <p>To be a premier institution of higher learning recognized globally for academic excellence, research
+                    innovation, and societal impact. We envision a future where our graduates lead across industries.
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="icon-box"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>Our Mission</h3>
+                <p>To provide accessible, high-quality education that empowers students with knowledge, skills, and
+                    ethical values. We strive to create an inclusive environment that promotes holistic student
+                    development.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        <div class="section-title">
+            <h2>Why Students Choose Us</h2>
+        </div>
+        <div class="grid grid-3">
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fa-solid fa-book"></i></div>
+                <h4>Academic Excellence</h4>
+                <p style="color: var(--light-text);">Rigorous curriculum updated regularly to match industry standards.
+                </p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fa-solid fa-seedling"></i></div>
+                <h4>Student Development</h4>
+                <p style="color: var(--light-text);">Focus on soft skills, leadership, and extracurricular activities.
+                </p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fa-solid fa-handshake"></i></div>
+                <h4>Strong Alumni Network</h4>
+                <p style="color: var(--light-text);">Connect with thousands of successful graduates worldwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

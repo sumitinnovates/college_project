@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero" style="padding: 60px 0; background: var(--primary-color);">
+    <div class="container">
+        <h1 style="margin-bottom: 0;">Admissions</h1>
+        <p style="margin-bottom: 0; margin-top: 10px;">Everything you need to know to join SBJS Rampuria Jain College.
+        </p>
+    </div>
+</section>
+
+<!-- Admission Process -->
+<section class="section-padding" style="background-color: var(--bg-color);">
+    <div class="container">
+        <div class="section-title">
+            <h2>Admission Process</h2>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>1. Explore Course</h4>
+                    <p style="margin:0; font-size: 0.9rem;">Review our course offerings and find the best fit for your
+                        career goals.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h4>2. Check Eligibility</h4>
+                    <p style="margin:0; font-size: 0.9rem;">Ensure you meet the academic requirements for your chosen
+                        program.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>3. Submit Enquiry</h4>
+                    <p style="margin:0; font-size: 0.9rem;">Fill out the online enquiry form to express your interest.
+                    </p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h4>4. Counselling</h4>
+                    <p style="margin:0; font-size: 0.9rem;">Our team will contact you for academic counselling and
+                        guidance.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>5. Document Verification</h4>
+                    <p style="margin:0; font-size: 0.9rem;">Submit your certificates and ID proofs for verification.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h4>6. Admission Confirmation</h4>
+                    <p style="margin:0; font-size: 0.9rem;">Complete the fee payment to confirm your enrollment.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="{{ url_for('enquiry') }}" class="btn btn-primary"
+                style="font-size: 1.1rem; padding: 15px 30px;">Start Your Application Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- Documents Required -->
+<section class="section-padding">
+    <div class="container grid grid-2" style="align-items: center; gap: 50px;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-content: center;">
+            <div class="card"
+                style="padding: 30px; text-align: center; background: white; border-top: 4px solid var(--primary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;"
+                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-color);">Academic</h4>
+            </div>
+            <div class="card"
+                style="padding: 30px; text-align: center; background: white; border-top: 4px solid var(--secondary-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;"
+                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fa-solid fa-id-card"></i></div>
+                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-color);">Identity</h4>
+            </div>
+            <div class="card"
+                style="padding: 30px; text-align: center; background: white; border-top: 4px solid #17a2b8; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;"
+                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fa-solid fa-camera"></i></div>
+                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-color);">Photos</h4>
+            </div>
+            <div class="card"
+                style="padding: 30px; text-align: center; background: white; border-top: 4px solid #28a745; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;"
+                onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fa-solid fa-certificate"></i></div>
+                <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-color);">Certificates</h4>
+            </div>
+        </div>
+        <div>
+            <h2>Required Documents</h2>
+            <p>Please prepare the following documents for verification during the admission process:</p>
+            <ul style="color: var(--text-color);">
+                <li style="margin-bottom: 10px; display: flex; gap: 10px;"><span><i class="fa-solid fa-circle-check" style="color: var(--success-color, #28a745);"></i></span> 10th Standard Marksheet &
+                    Certificate</li>
+                <li style="margin-bottom: 10px; display: flex; gap: 10px;"><span><i class="fa-solid fa-circle-check" style="color: var(--success-color, #28a745);"></i></span> 12th Standard Marksheet &
+                    Certificate</li>
+                <li style="margin-bottom: 10px; display: flex; gap: 10px;"><span><i class="fa-solid fa-circle-check" style="color: var(--success-color, #28a745);"></i></span> Transfer Certificate (TC)</li>
+                <li style="margin-bottom: 10px; display: flex; gap: 10px;"><span><i class="fa-solid fa-circle-check" style="color: var(--success-color, #28a745);"></i></span> Character Certificate</li>
+                <li style="margin-bottom: 10px; display: flex; gap: 10px;"><span><i class="fa-solid fa-circle-check" style="color: var(--success-color, #28a745);"></i></span> Migration Certificate (if
+                    applicable)</li>
+                <li style="margin-bottom: 10px; display: flex; gap: 10px;"><span><i class="fa-solid fa-circle-check" style="color: var(--success-color, #28a745);"></i></span> Valid ID Proof
+                    (Aadhaar/Passport)</li>
+                <li style="margin-bottom: 10px; display: flex; gap: 10px;"><span><i class="fa-solid fa-circle-check" style="color: var(--success-color, #28a745);"></i></span> 4 Recent Passport Size
+                    Photographs</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- FAQs Section -->
+<section id="faq" class="section-padding" style="background-color: var(--bg-color);">
+    <div class="container">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+
+        {% if not faqs %}
+        <p style="text-align: center; color: var(--danger);">FAQ information is currently unavailable.</p>
+        {% else %}
+        <div class="accordion">
+            {% for faq in faqs %}
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    {{ faq.question }}
+                    <span class="icon">+</span>
+                </button>
+                <div class="accordion-content">
+                    <p style="margin-top: 15px; margin-bottom: 0; color: var(--light-text);">{{ faq.answer |
+                        replace('\n', '<br>') | safe }}</p>
+                    <p style="margin-top: 10px; font-size: 0.8rem; color: var(--primary-color);">
+                        <strong>Category:</strong> {{ faq.category }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

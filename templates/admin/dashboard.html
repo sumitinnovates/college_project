@@ -1,0 +1,74 @@
+{% extends 'admin/base.html' %}
+
+{% block admin_content %}
+<h2 style="margin-bottom: 20px;">Dashboard Overview</h2>
+
+<div class="stats-grid">
+    <div class="stat-card" style="border-left-color: var(--admin-text-light);">
+        <h3>{{ stats.total }}</h3>
+        <p>Total Enquiries</p>
+    </div>
+    <div class="stat-card" style="border-left-color: var(--status-pending);">
+        <h3>{{ stats.pending }}</h3>
+        <p>Pending</p>
+    </div>
+    <div class="stat-card" style="border-left-color: var(--status-contacted);">
+        <h3>{{ stats.contacted }}</h3>
+        <p>Contacted</p>
+    </div>
+    <div class="stat-card" style="border-left-color: var(--status-admitted);">
+        <h3>{{ stats.admitted }}</h3>
+        <p>Admitted</p>
+    </div>
+    <div class="stat-card" style="border-left-color: var(--status-rejected);">
+        <h3>{{ stats.rejected }}</h3>
+        <p>Rejected</p>
+    </div>
+</div>
+
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3>Recent Enquiries</h3>
+        <a href="{{ url_for('admin_enquiries') }}" class="btn btn-primary btn-sm">View All</a>
+    </div>
+    
+    <div class="table-responsive">
+        {% if not recent_enquiries %}
+            <p>No admission enquiries found.</p>
+        {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for enq in recent_enquiries %}
+                        <tr>
+                            <td>ENQ-{{ '%06d' % enq.id }}</td>
+                            <td>{{ enq.full_name }}</td>
+                            <td>{{ enq.course }}</td>
+                            <td>{{ enq.phone }}</td>
+                            <td>{{ enq.created_at.strftime('%b %d, %Y') if enq.created_at else 'N/A' }}</td>
+                            <td>
+                                <span class="badge badge-{{ enq.status|lower }}">
+                                    {{ enq.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('admin_view_enquiry', enquiry_id=enq.id) }}" class="btn btn-primary btn-sm">View</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero" style="padding: 60px 0; background: var(--primary-color);">
+    <div class="container">
+        <h1 style="margin-bottom: 0;">Our Programs</h1>
+        <p style="margin-bottom: 0; margin-top: 10px;">Explore our undergraduate courses tailored for industry success.
+        </p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container">
+        {% if not courses %}
+        <div
+            style="text-align: center; padding: 40px; background: var(--white); border-radius: var(--border-radius); border: 1px solid var(--border-color);">
+            <p style="color: var(--danger); font-size: 1.2rem;">Sorry, course information could not be loaded at this
+                time.</p>
+        </div>
+        {% else %}
+        <div class="grid grid-3">
+            {% for course in courses %}
+            <div class="card">
+                <div class="card-body">
+                    <h3 style="margin-bottom: 5px;">{{ course.course_name }}</h3>
+                    <p style="color: var(--secondary-color); font-weight: 600; margin-bottom: 15px;">{{
+                        course.short_name }}</p>
+
+                    <ul style="margin-bottom: 15px; color: var(--text-color);">
+                        <li style="margin-bottom: 8px;"><strong><i class="fa-regular fa-clock"
+                                    style="color: var(--secondary-color);"></i> Duration:</strong> {{ course.duration }}
+                        </li>
+                        <li style="margin-bottom: 8px;"><strong><i class="fa-solid fa-graduation-cap"
+                                    style="color: var(--secondary-color);"></i> Eligibility:</strong> {{
+                            course.eligibility }}</li>
+                        <li style="margin-bottom: 8px;"><strong><i class="fa-solid fa-indian-rupee-sign"
+                                    style="color: var(--secondary-color);"></i> Fee:</strong> ₹{{
+                            "%.2f"|format(course.fee) }}/year</li>
+                    </ul>
+
+                    <p style="margin-top: auto; color: var(--light-text);">{{ course.description[:120] }}...</p>
+                </div>
+                <div class="card-footer" style="display: flex; gap: 10px;">
+                    <a href="{{ url_for('course_details', course_id=course.id) }}" class="btn btn-secondary"
+                        style="flex: 1; padding: 10px;">View Details</a>
+                    <a href="{{ url_for('enquiry', course=course.short_name) }}" class="btn btn-primary"
+                        style="flex: 1; padding: 10px;">Enquire Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if not course %}
+<div class="container section-padding">
+    <div style="text-align: center; padding: 40px; background: var(--white); border-radius: var(--border-radius); border: 1px solid var(--border-color);">
+        <p style="color: var(--danger); font-size: 1.2rem;">Course not found or invalid course ID.</p>
+        <a href="{{ url_for('courses') }}" class="btn btn-primary" style="margin-top: 20px;">Back to Courses</a>
+    </div>
+</div>
+{% else %}
+<section class="hero" style="padding: 60px 0; background: var(--primary-color);">
+    <div class="container">
+        <h1 style="margin-bottom: 0;">{{ course.course_name }}</h1>
+        <p style="margin-bottom: 0; margin-top: 10px;">{{ course.short_name }}</p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container grid grid-2" style="grid-template-columns: 2fr 1fr; gap: 40px;">
+        
+        <!-- Left Content -->
+        <div>
+            <h2>Course Overview</h2>
+            <p style="font-size: 1.1rem; color: var(--text-color); margin-bottom: 30px;">{{ course.description | replace('\n', '<br>') | safe }}</p>
+            
+            <h3 style="margin-top: 40px; margin-bottom: 20px;">Syllabus / Subjects</h3>
+            {% if not semesters %}
+                <p>Subject details are currently not available for this course.</p>
+            {% else %}
+                <div class="accordion">
+                    {% for sem, sem_subjects in semesters.items() %}
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            Semester {{ sem }}
+                            <span class="icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <ul style="padding-top: 15px;">
+                                {% for sub in sem_subjects %}
+                                    <li style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);">
+                                        <strong>{{ sub.subject_name }}</strong>
+                                        <p style="margin-top: 5px; margin-bottom: 0; font-size: 0.95rem;">{{ sub.description }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Right Sidebar -->
+        <div>
+            <div class="card" style="position: sticky; top: 100px;">
+                <div class="card-body">
+                    <h3 style="border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px;">Course Details</h3>
+                    
+                    <ul style="margin-bottom: 20px; color: var(--text-color);">
+                        <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.5rem; color: var(--secondary-color);"><i class="fa-regular fa-clock"></i></span> 
+                            <div>
+                                <strong style="display: block; font-size: 0.85rem; color: var(--light-text);">Duration</strong>
+                                {{ course.duration }}
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.5rem; color: var(--secondary-color);"><i class="fa-solid fa-graduation-cap"></i></span> 
+                            <div>
+                                <strong style="display: block; font-size: 0.85rem; color: var(--light-text);">Eligibility</strong>
+                                {{ course.eligibility }}
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.5rem; color: var(--secondary-color);"><i class="fa-solid fa-indian-rupee-sign"></i></span> 
+                            <div>
+                                <strong style="display: block; font-size: 0.85rem; color: var(--light-text);">Annual Fee</strong>
+                                ₹{{ "%.2f"|format(course.fee) }}
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <a href="{{ url_for('enquiry', course=course.short_name) }}" class="btn btn-primary" style="width: 100%; display: block; margin-top: 20px;">Enquire Now</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+{% endif %}
+{% endblock %}

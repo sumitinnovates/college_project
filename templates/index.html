@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>Your Future Starts Here</h1>
+        <p>Discover top-tier education, experienced faculty, and modern facilities designed to shape your successful career.</p>
+        <div class="btn-group">
+            <a href="{{ url_for('courses') }}" class="btn btn-primary">Explore Courses</a>
+            <a href="{{ url_for('enquiry') }}" class="btn btn-outline">Make an Enquiry</a>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="stats">
+    <div class="container grid grid-4">
+        <div class="stat-item">
+            <h3>25+</h3>
+            <p>Courses</p>
+        </div>
+        <div class="stat-item">
+            <h3>5000+</h3>
+            <p>Students</p>
+        </div>
+        <div class="stat-item">
+            <h3>150+</h3>
+            <p>Faculty</p>
+        </div>
+        <div class="stat-item">
+            <h3>20+</h3>
+            <p>Awards</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section-padding">
+    <div class="container">
+        <div class="section-title">
+            <h2>Why Choose Us</h2>
+        </div>
+        <div class="grid grid-4">
+            <div class="card">
+                <div class="card-body" style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px;"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h4>Quality Education</h4>
+                    <p>Industry-relevant curriculum designed by experts.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body" style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px;">👨‍🏫</div>
+                    <h4>Experienced Faculty</h4>
+                    <p>Qualified and experienced teaching staff dedicated to your success.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body" style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px;">🏢</div>
+                    <h4>Modern Infrastructure</h4>
+                    <p>State-of-the-art classrooms, labs, and modern facilities.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body" style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px;">💼</div>
+                    <h4>Placement Support</h4>
+                    <p>Career guidance and placement support to help you start your career.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses -->
+<section class="section-padding" style="background-color: #f1f5f9;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Featured Courses</h2>
+        </div>
+        
+        {% if not courses %}
+            <p style="text-align: center; color: var(--danger);">Course information is currently unavailable.</p>
+        {% else %}
+            <div class="grid grid-3">
+                {% for course in courses %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="margin-bottom: 5px;">{{ course.course_name }}</h3>
+                        <p style="color: var(--secondary-color); font-weight: 600; margin-bottom: 15px;">{{ course.short_name }}</p>
+                        
+                        <p><strong>Duration:</strong> {{ course.duration }}</p>
+                        <p><strong>Eligibility:</strong> {{ course.eligibility }}</p>
+                        <p><strong>Fee:</strong> ₹{{ "%.2f"|format(course.fee) }}/year</p>
+                        
+                        <p style="margin-top: 15px; flex-grow: 1;">{{ course.description[:100] }}...</p>
+                    </div>
+                    <div class="card-footer" style="display: flex; gap: 10px;">
+                        <a href="{{ url_for('course_details', course_id=course.id) }}" class="btn btn-secondary" style="flex: 1; padding: 10px;">View Details</a>
+                        <a href="{{ url_for('enquiry', course=course.short_name) }}" class="btn btn-primary" style="flex: 1; padding: 10px;">Enquire Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{{ url_for('courses') }}" class="btn btn-secondary">View All Courses</a>
+        </div>
+    </div>
+</section>
+
+<!-- Faculty Preview -->
+<section class="section-padding">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Expert Faculty</h2>
+        </div>
+        
+        {% if not faculty_list %}
+            <p style="text-align: center; color: var(--danger);">Faculty information is currently unavailable.</p>
+        {% else %}
+            <div class="grid grid-4">
+                {% for member in faculty_list %}
+                <div class="card" style="text-align: center;">
+                    <div class="card-body">
+                        <div style="font-size: 4rem; margin-bottom: 15px;">👤</div>
+                        <h4 style="margin-bottom: 5px;">{{ member.name }}</h4>
+                        <p style="color: var(--secondary-color); font-weight: 500; font-size: 0.9rem; margin-bottom: 10px;">{{ member.designation }}</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 5px;"><strong>Dept:</strong> {{ member.department }}</p>
+                        <p style="font-size: 0.9rem;"><strong>Exp:</strong> {{ member.experience }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{{ url_for('faculty') }}" class="btn btn-secondary">View All Faculty</a>
+        </div>
+    </div>
+</section>
+
+<!-- Admission Process -->
+<section class="section-padding" style="background-color: var(--primary-color); color: var(--white);">
+    <div class="container">
+        <div class="section-title">
+            <h2 style="color: var(--white); border-bottom-color: var(--white);">Admission Process</h2>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content" style="color: var(--text-color);">
+                    <h4>1. Explore Course</h4>
+                    <p style="margin:0;">Find the program that aligns with your goals.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content" style="color: var(--text-color);">
+                    <h4>2. Check Eligibility</h4>
+                    <p style="margin:0;">Ensure you meet the basic academic requirements.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content" style="color: var(--text-color);">
+                    <h4>3. Submit Enquiry</h4>
+                    <p style="margin:0;">Fill out the online admission enquiry form.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content" style="color: var(--text-color);">
+                    <h4>4. Counselling</h4>
+                    <p style="margin:0;">Interact with our admission counselors.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content" style="color: var(--text-color);">
+                    <h4>5. Document Verification</h4>
+                    <p style="margin:0;">Submit necessary academic documents.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content" style="color: var(--text-color);">
+                    <h4>6. Admission Confirmation</h4>
+                    <p style="margin:0;">Pay the fees and confirm your seat.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

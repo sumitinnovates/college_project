@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBJS Rampuria Jain College - Your Future Starts Here</title>
+    <meta name="description" content="Discover top courses, experienced faculty, and a modern campus at SBJS Rampuria Jain College.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 40px; margin-right: 10px;"> SBJS Rampuria Jain College
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">☰</button>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}"
+                        class="{{ 'active' if request.endpoint == 'index' else '' }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}"
+                        class="{{ 'active' if request.endpoint == 'about' else '' }}">About</a></li>
+                <li><a href="{{ url_for('courses') }}"
+                        class="{{ 'active' if request.endpoint in ['courses', 'course_details'] else '' }}">Courses</a>
+                </li>
+                <li><a href="{{ url_for('admissions') }}"
+                        class="{{ 'active' if request.endpoint == 'admissions' else '' }}">Admissions</a></li>
+                <li><a href="{{ url_for('faculty') }}"
+                        class="{{ 'active' if request.endpoint == 'faculty' else '' }}">Faculty</a></li>
+                <li><a href="{{ url_for('contact') }}"
+                        class="{{ 'active' if request.endpoint == 'contact' else '' }}">Contact</a></li>
+                <li><a href="{{ url_for('enquiry') }}"
+                        class="btn btn-primary {{ 'active' if request.endpoint == 'enquiry' else '' }}"
+                        style="color: white;">Enquiry Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer">
+        <div class="container grid grid-3">
+            <div>
+                <h4>SBJS Rampuria Jain College</h4>
+                <p>Empowering the next generation of leaders through quality education and modern infrastructure. Your
+                    journey to excellence starts here.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="{{ url_for('faculty') }}">Faculty</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Admission</h4>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('admissions') }}">Admission Process</a></li>
+                    <li><a href="{{ url_for('admissions') }}#faq">FAQs</a></li>
+                    <li><a href="{{ url_for('enquiry') }}">Make an Enquiry</a></li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <i class="fa-solid fa-phone"></i> (+91) 96805 88414<br>
+                    <i class="fa-solid fa-envelope"></i> bjsrjaincollege@gmail.com
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 SBJS Rampuria Jain College. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot/chatbot.css') }}">
+    <!-- Chatbot UI Shell -->
+    <div class="chatbot-widget">
+        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open Chatbot"><i class="fa-solid fa-comment-dots"></i></button>
+
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <h4>Admission Assistant</h4>
+                    <p>Ask me about admissions</p>
+                </div>
+                <button class="chat-close" id="chatbotClose" aria-label="Close Chat">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <!-- Messages will be injected here -->
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" class="chat-input"
+                    placeholder="Ask about fees, courses, eligibility...">
+                <button id="chatSend" class="chat-send" aria-label="Send Message">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='chatbot/chatbot.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

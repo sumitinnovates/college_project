@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - SBJS Rampuria Jain College</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/admin.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="height: 30px; margin-right: 10px;">
+            Admin Panel
+        </div>
+        <div class="sidebar-nav">
+            <a href="{{ url_for('admin_dashboard') }}" class="{{ 'active' if request.endpoint == 'admin_dashboard' else '' }}">
+                <i class="fa-solid fa-chart-pie"></i> Dashboard
+            </a>
+            <a href="{{ url_for('admin_enquiries') }}" class="{{ 'active' if request.endpoint in ['admin_enquiries', 'admin_view_enquiry'] else '' }}">
+                <i class="fa-solid fa-pen-to-square"></i> Enquiries
+            </a>
+            <a href="{{ url_for('admin_logout') }}" style="margin-top: auto;">
+                🚪 Logout
+            </a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="top-header">
+            <button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+            <div style="margin-left: auto;">
+                Welcome, Admin
+            </div>
+        </div>
+        <div class="content-body">
+            {% block admin_content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
