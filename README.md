@@ -1,69 +1,143 @@
-# Web-Based College Admission Enquiry System
+# 🎓 College Admission Enquiry System
 
-A comprehensive, fully functional web application designed as a BCA final-year academic project. It provides a polished public-facing portal for prospective students and a secure backend administration panel for managing admission enquiries.
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
+![Flask](https://img.shields.io/badge/Flask-3.1.1-lightgrey.svg)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange.svg)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)
 
-## Features
+A complete web-based **College Admission Enquiry System** developed using Python, Flask, and MySQL. This system provides an interactive platform for students to explore college courses, view faculty, and submit admission enquiries. It also features a robust Admin Dashboard for college staff to manage and track those enquiries efficiently.
 
-- **Dynamic Public Website:** Responsive and modern UI with dynamic content loaded from the database (Courses, Faculty, FAQs).
-- **Interactive Chatbot:** A custom, rule-based Vanilla JS chatbot serving fast, context-aware answers regarding admissions without relying on external APIs.
-- **Enquiry System:** A secure AJAX-based admission enquiry form featuring robust client-side and server-side validation.
-- **Admin Panel:** Secure authentication system with CSRF protection, session regeneration, and password hashing.
-- **Enquiry Management:** Admins can view, search, filter, update statuses, and securely delete enquiries.
-- **Security:** Built using PDO prepared statements to prevent SQL Injection and `htmlspecialchars()` to prevent XSS.
+---
 
-## Technologies Used
+## 🌟 Key Features
 
-- **Frontend:** HTML5, CSS3 (Custom Variables, Flexbox, Grid), Vanilla JavaScript
-- **Backend:** PHP 8+ (Vanilla, PDO)
-- **Database:** MySQL
-- **Environment:** Laravel Herd / XAMPP compatible
+### 👨‍🎓 Public Facing (Students & Parents)
+- **Home & About:** Explore featured courses and learn about the college.
+- **Course Details:** Browse available courses, fees, eligibility, and semester-wise subjects.
+- **Faculty Directory:** View college faculty members grouped by their respective departments.
+- **Admissions & FAQs:** Read the admission process and common FAQs.
+- **Online Enquiry Form:** An interactive, AJAX-powered form to submit admission queries.
+- **Chatbot Integration Support:** Built-in API endpoints to feed data to a frontend chatbot.
 
-## Folder Structure
+### 🔐 Admin Dashboard (College Staff)
+- **Secure Login:** Protected admin routes with hashed passwords (Werkzeug).
+- **Dashboard Overview:** Quick statistics on total, pending, contacted, admitted, and rejected enquiries.
+- **Enquiry Management:** 
+  - Search and filter enquiries by status, course, or year.
+  - View detailed information of each applicant.
+  - Update enquiry status (`Pending` ➔ `Contacted` ➔ `Admitted` / `Rejected`).
+  - Delete obsolete enquiries.
 
+---
+
+## 🛠️ Technology Stack
+
+| Component | Technology |
+| --- | --- |
+| **Backend Framework** | Python (Flask) |
+| **Database** | MySQL |
+| **Database Driver** | PyMySQL |
+| **Frontend** | HTML5, CSS3, JavaScript |
+| **Templating Engine** | Jinja2 |
+| **Security** | Werkzeug Password Hashing |
+
+---
+
+## 🚀 Installation & Setup Guide
+
+Follow these steps to run the project on your local machine.
+
+### 1. Prerequisites
+- Python 3.x installed
+- MySQL Server installed and running
+- Git (optional)
+
+### 2. Clone the Repository (or navigate to the project folder)
+```bash
+cd "college project python"
 ```
-college-project/
-├── admin/               # Secure admin panel (Dashboard, login, management)
-├── chatbot/             # Chatbot UI and Vanilla JS logic
-├── css/                 # Global styles and responsive design
-├── database/            # Contains database.sql for initial import
-├── images/              # Assets
-├── includes/            # Reusable header and footer components
-├── js/                  # Global javascript (Navbar, accordions)
-├── php/                 # Database configuration, connections, and endpoints
-└── *.php                # Public facing pages (index, about, courses, etc.)
+
+### 3. Setup Virtual Environment (Recommended)
+```bash
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On Mac/Linux:
+source venv/bin/activate
 ```
 
-## Setup Instructions
+### 4. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-### 1. Database Setup
-1. Open your MySQL client (e.g., phpMyAdmin, TablePlus, or CLI).
-2. Create a new database named `college_admission`.
-3. Import the `database/database.sql` file to create the necessary tables and populate demo data.
+### 5. Database Configuration
+1. Open your MySQL client (e.g., phpMyAdmin, MySQL Workbench, or CLI).
+2. Import the provided SQL script to create the database and tables:
+   - File location: `database/database.sql`
+   - This script will automatically create the database `college_admission_python` and insert sample data (courses, faculty, faqs, admin user).
 
-### 2. Environment Configuration
-1. Ensure the `.env` file in the root directory contains your correct MySQL credentials:
-   ```
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_NAME=college_admission
-   DB_USER=root
-   DB_PASS=dbpass
-   ```
-*(Note: Modify `DB_PASS` and `DB_USER` as per your local environment. The current credentials are set for the development environment.)*
+### 6. Environment Variables
+Create a `.env` file in the root directory (if not already present) and configure your database connection:
 
-### 3. Running the Project
-Since this project uses plain PHP, you can run it using any local PHP server:
-- **Laravel Herd:** Simply place the folder in your Herd paths. It will automatically be served.
-- **XAMPP/WAMP:** Place the project inside `htdocs` or `www` and access it via `http://localhost/college-project`.
-- **PHP Built-in Server:** Run `php -S localhost:8000` in the terminal and visit `http://localhost:8000`.
+```env
+SECRET_KEY=your_super_secret_key_here
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASS=your_mysql_password
+DB_NAME=college_admission_python
+```
 
-## Admin Login
-To access the admin panel, navigate to `/admin/login.php` or `/admin/`.
-- **Demo Username:** `admin`
-- **Demo Password:** `admin123`
+### 7. Run the Application
+```bash
+python app.py
+```
+The application will start running on `http://127.0.0.1:8080/`.
 
-*(Important: Change these credentials before deploying to a production environment!)*
+---
 
-## Security Notes
-- The `.env` file and SQL files are protected from direct access via the included `.htaccess` file.
-- All forms are protected against CSRF and XSS attacks.
+## 🔑 Default Admin Credentials
+
+To access the admin dashboard, navigate to `http://127.0.0.1:8080/admin/login` and use the following credentials (provided by the initial SQL dump):
+
+- **Username:** `admin`
+- **Password:** `admin123`
+
+*(Note: It is highly recommended to change this password in a production environment.)*
+
+---
+
+## 📁 Project Structure
+
+```text
+college project python/
+│
+├── app.py                  # Main Flask application and routes
+├── requirements.txt        # Python dependencies
+├── .env                    # Environment variables (Database credentials)
+├── README.md               # Project documentation
+│
+├── database/
+│   └── database.sql        # MySQL Database schema and seed data
+│
+├── static/                 # Static assets (CSS, JS, Images)
+│   ├── css/
+│   ├── js/
+│   └── images/
+│
+└── templates/              # Jinja2 HTML Templates
+    ├── index.html
+    ├── about.html
+    ├── admin/              # Admin panel templates
+    └── ...
+```
+
+---
+
+## 🤝 Contributing
+
+This project was developed for a college dissertation/project. Feel free to fork and enhance it for your own learning purposes!
+
+---
+*Developed by SBJS Rampuria Jain College Project Team.*
