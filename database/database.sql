@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `college_admission_python`;
-USE `college_admission_python`;
-
 -- --------------------------------------------------------
 -- Table structure for `admins`
 -- --------------------------------------------------------
